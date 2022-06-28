@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,7 +33,7 @@ private:
     void setupDivision();
 
     // PLUS member vars
-    int mPlusAntal = 20;
-    int mPlusMaxSum = 50;
+    int mPlusAntal;
+    int mPlusMaxSum;
 };
 #endif // MAINWINDOW_H

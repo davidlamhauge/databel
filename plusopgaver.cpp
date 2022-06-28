@@ -4,19 +4,20 @@
 #include <QDebug>
 #include <QRandomGenerator>
 
-PlusOpgaver::PlusOpgaver(QWidget *parent) :
+PlusOpgaver::PlusOpgaver(int antal, int maxSum, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PlusOpgaver)
 {
     ui->setupUi(this);
+    mPlusOpgaver = antal;
+    mPlusMaxSum = maxSum;
+
+    ui->labIalt->setText(QString::number(mPlusOpgaver));
 
     connect(ui->btnExit, &QPushButton::clicked, this, &PlusOpgaver::close);
-    QString opg = getPlusOpgave();
-    QStringList list = opg.split(",");
-    int a = list.first().toInt();
-    int b = list.last().toInt();
-    ui->labTal1->setText(list.first());
-    ui->labTal2->setText(list.last());
+    connect(ui->btnSolved, &QPushButton::clicked, this, &PlusOpgaver::checkPlusOpgave);
+
+    setPlusOpgave();
 }
 
 PlusOpgaver::~PlusOpgaver()
@@ -24,12 +25,18 @@ PlusOpgaver::~PlusOpgaver()
     delete ui;
 }
 
-void PlusOpgaver::setCore(int antal, int maxSum)
+void PlusOpgaver::setPlusOpgave()
 {
-    mPlusOpgaver = antal;
-    mPlusMaxSum = maxSum;
-
-    ui->labIalt->setText(QString::number(mPlusOpgaver));
+    ui->labRigtige->setText(QString::number(mCorrect));
+    ui->labSolved->setText(QString::number(mSolved));
+    ui->labMulige->setText(QString::number(mSolved));
+    if (mSolved < mPlusOpgaver)
+        solvePlus();
+    else
+    {
+        ui->leResult->setEnabled(false);
+        ui->btnSolved->setEnabled(false);
+    }
 }
 
 QString PlusOpgaver::getPlusOpgave()
@@ -41,5 +48,29 @@ QString PlusOpgaver::getPlusOpgave()
         a = QRandomGenerator::global()->bounded(tal);
         b = QRandomGenerator::global()->bounded(tal);
     } while (a + b > mPlusMaxSum);
-    return QString(QString::number(a)+"," + QString::number(b));
+    return QString(QString::number(a) + "," + QString::number(b));
+}
+
+void PlusOpgaver::checkPlusOpgave()
+{
+    int guess = ui->leResult->text().toInt();
+    if (guess == mResult)
+    {
+        mCorrect++;
+    }
+    mSolved++;
+    setPlusOpgave();
+}
+
+void PlusOpgaver::solvePlus()
+{
+    QString opg = getPlusOpgave();
+    QStringList list = opg.split(",");
+    m1 = list.first().toInt();
+    m2 = list.last().toInt();
+    mResult = m1 + m2;
+    ui->labTal1->setText(list.first());
+    ui->labTal2->setText(list.last());
+    ui->leResult->clear();
+    ui->leResult->setFocus();
 }

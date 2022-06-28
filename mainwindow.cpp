@@ -42,6 +42,7 @@ void MainWindow::setupPlus()
     sbAntal->setMinimum(10);
     sbAntal->setMaximum(100);
     sbAntal->setValue(20);
+    mPlusAntal = 20;
     sbAntal->setToolTip(tr("Interval: 10-100"));
     grid->addWidget(labOpgaveAntal,0, 0);
     grid->addWidget(sbAntal,0, 1);
@@ -51,6 +52,7 @@ void MainWindow::setupPlus()
     sbMaxSum->setMinimum(20);
     sbMaxSum->setMaximum(1000);
     sbMaxSum->setValue(50);
+    mPlusMaxSum = 50;
     sbMaxSum->setToolTip(tr("Interval: 20-1000"));
     grid->addWidget(labMaxSum,1, 0);
     grid->addWidget(sbMaxSum,1, 1);
@@ -68,8 +70,7 @@ void MainWindow::setupPlus()
 
 void MainWindow::plusChosen()
 {
-    PlusOpgaver* plusOpg = new PlusOpgaver();
-    plusOpg->setCore(mPlusAntal, mPlusMaxSum);
+    PlusOpgaver* plusOpg = new PlusOpgaver(mPlusAntal, mPlusMaxSum);
     plusOpg->show();
 }
 

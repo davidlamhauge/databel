@@ -12,19 +12,25 @@ class PlusOpgaver : public QWidget
     Q_OBJECT
 
 public:
-    explicit PlusOpgaver(QWidget *parent = nullptr);
+    explicit PlusOpgaver(int antal, int maxSum, QWidget *parent = nullptr);
     ~PlusOpgaver();
-
-    void setCore(int antal, int maxSum);
 
 private:
     Ui::PlusOpgaver *ui;
 
+    void setPlusOpgave();
     QString getPlusOpgave();
+    void checkPlusOpgave();
+    void solvePlus();
 
-    int mPlusOpgaver = 20;
-    int mPlusMaxSum = 50;
+    int mPlusOpgaver;
+    int mPlusMaxSum;
 
+    int m1 = 0;
+    int m2 = 0;
+    bool mCont = false;
+
+    int mResult = 0;
     int mSolved = 0;
     int mCorrect = 0;
 };
