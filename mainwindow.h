@@ -19,9 +19,20 @@ private:
     Ui::MainWindow *ui;
 
     void setupOptions();
+
     void setupPlus();
+    void setPlusAntal(int antal) {mPlusAntal = antal; }
+    void setPlusMaxSum(int maxSum) {mPlusMaxSum = maxSum; }
+    void plusChosen();
+
     void setupMinus();
+
     void setupGange();
+
     void setupDivision();
+
+    // PLUS member vars
+    int mPlusAntal = 20;
+    int mPlusMaxSum = 50;
 };
 #endif // MAINWINDOW_H
