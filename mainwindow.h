@@ -18,6 +18,10 @@ public:
 private:
     Ui::MainWindow *ui;
 
-
+    void setupOptions();
+    void setupPlus();
+    void setupMinus();
+    void setupGange();
+    void setupDivision();
 };
 #endif // MAINWINDOW_H

@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setupOptions();
 
     connect(ui->btnExit, &QPushButton::clicked, this, &MainWindow::close);
 }
@@ -13,5 +14,15 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setupOptions()
+{
+
+}
+
+void MainWindow::setupPlus()
+{
+
 }
 
