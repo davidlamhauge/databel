@@ -2,6 +2,7 @@
 #define PLUSOPGAVER_H
 
 #include <QWidget>
+#include <QElapsedTimer>
 
 namespace Ui {
 class PlusOpgaver;
@@ -33,6 +34,8 @@ private:
     int mResult = 0;
     int mSolved = 0;
     int mCorrect = 0;
+
+    QElapsedTimer timer;
 };
 
 #endif // PLUSOPGAVER_H

@@ -17,6 +17,7 @@ PlusOpgaver::PlusOpgaver(int antal, int maxSum, QWidget *parent) :
     connect(ui->btnExit, &QPushButton::clicked, this, &PlusOpgaver::close);
     connect(ui->btnSolved, &QPushButton::clicked, this, &PlusOpgaver::checkPlusOpgave);
 
+    timer.start();
     setPlusOpgave();
 }
 
@@ -36,6 +37,8 @@ void PlusOpgaver::setPlusOpgave()
     {
         ui->leResult->setEnabled(false);
         ui->btnSolved->setEnabled(false);
+        int elapsed = timer.elapsed() / 1000;
+        ui->labElapsed->setText(QString::number(elapsed) + " sek.");
     }
 }
 
