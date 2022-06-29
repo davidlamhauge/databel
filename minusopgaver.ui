@@ -94,7 +94,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lab2_correct">
+      <widget class="QLabel" name="labRigtige">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -118,7 +118,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lab2_solved">
+      <widget class="QLabel" name="labMulige">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -147,7 +147,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="labFirst">
        <property name="font">
         <font>
          <pointsize>16</pointsize>
@@ -159,7 +159,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="labMinus">
        <property name="font">
         <font>
          <pointsize>16</pointsize>
@@ -171,7 +171,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="labSecond">
        <property name="font">
         <font>
          <pointsize>16</pointsize>
@@ -183,7 +183,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="labEquals">
        <property name="font">
         <font>
          <pointsize>16</pointsize>
@@ -208,7 +208,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
-      <widget class="QLabel" name="labTime">
+      <widget class="QLabel" name="labElapsed">
        <property name="font">
         <font>
          <pointsize>12</pointsize>

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "plusopgaver.h"
+#include "minusopgaver.h"
 
 #include <QSpinBox>
 #include <QCheckBox>
@@ -18,6 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->btnExit, &QPushButton::clicked, this, &MainWindow::close);
     connect(ui->rbPlus, &QRadioButton::toggled, this, &MainWindow::setupOptions);
+    connect(ui->rbMinus, &QRadioButton::toggled, this, &MainWindow::setupOptions);
+    connect(ui->rbGange, &QRadioButton::toggled, this, &MainWindow::setupOptions);
+    connect(ui->rbDivision, &QRadioButton::toggled, this, &MainWindow::setupOptions);
 }
 
 MainWindow::~MainWindow()
@@ -37,8 +41,23 @@ void MainWindow::setupOptions()
         setupDivision();
 }
 
+void MainWindow::removeLayout()
+{
+    if (ui->groupBox->layout() != nullptr)
+    {
+        QLayoutItem* item;
+        while ((item = ui->groupBox->layout()->takeAt(0)) != nullptr) {
+            delete item->widget();
+            delete item;
+        }
+        delete ui->groupBox->layout();
+    }
+}
+
 void MainWindow::setupPlus()
 {
+    removeLayout();
+
     QGridLayout* grid = new QGridLayout;
 
     QLabel* labOpgaveAntal = new QLabel(tr("Antal opgaver:"));
@@ -80,6 +99,8 @@ void MainWindow::plusChosen()
 
 void MainWindow::setupMinus()
 {
+    removeLayout();
+
     QGridLayout* grid = new QGridLayout;
 
     QLabel* labOpgaveAntal = new QLabel(tr("Antal opgaver:"));
@@ -111,22 +132,35 @@ void MainWindow::setupMinus()
     // connects
     connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setMinusAntal);
     connect(sbMaxTal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setMinusMaxTal);
+    connect(cb, &QCheckBox::stateChanged, this, &MainWindow::setNegativeResult);
     connect(btnOK, &QPushButton::clicked, this, &MainWindow::minusChosen);
 
     ui->groupBox->setLayout(grid);
 }
 
+void MainWindow::setNegativeResult(int state)
+{
+    if (state == 2)
+        mNegativeResult = true;
+    else
+        mNegativeResult = false;
+}
+
 void MainWindow::minusChosen()
 {
+    MinusOpgaver* minusOpg = new MinusOpgaver(mMinusAntal, mMinusMaxTal, mNegativeResult);
+    minusOpg->show();
 }
 
 void MainWindow::setupGange()
 {
+    removeLayout();
 
 }
 
 void MainWindow::setupDivision()
 {
+    removeLayout();
 
 }
 

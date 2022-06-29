@@ -13,13 +13,13 @@ PlusOpgaver::PlusOpgaver(int antal, int maxSum, QWidget *parent) :
 
     ui->leResult->installEventFilter(this);
 
-    mPlusOpgaver = antal;
-    mPlusMaxSum = maxSum;
+    mOpgaver = antal;
+    mMaxSum = maxSum;
 
-    ui->labIalt->setText(QString::number(mPlusOpgaver));
+    ui->labIalt->setText(QString::number(mOpgaver));
 
     connect(ui->btnExit, &QPushButton::clicked, this, &PlusOpgaver::close);
-    connect(ui->btnOnceMore, &QPushButton::clicked, this, &PlusOpgaver::restartPLus);
+    connect(ui->btnOnceMore, &QPushButton::clicked, this, &PlusOpgaver::restartPlus);
 
     timer.start();
     setPlusOpgave();
@@ -51,7 +51,7 @@ bool PlusOpgaver::eventFilter(QObject *obj, QEvent *e)
     return QWidget::eventFilter(obj, e);
 }
 
-void PlusOpgaver::restartPLus()
+void PlusOpgaver::restartPlus()
 {
     mResult = 0;
     mSolved = 0;
@@ -69,7 +69,7 @@ void PlusOpgaver::setPlusOpgave()
     ui->labRigtige->setText(QString::number(mCorrect));
     ui->labSolved->setText(QString::number(mSolved));
     ui->labMulige->setText(QString::number(mSolved));
-    if (mSolved < mPlusOpgaver)
+    if (mSolved < mOpgaver)
         solvePlus();
     else
     {
@@ -81,13 +81,13 @@ void PlusOpgaver::setPlusOpgave()
 
 QString PlusOpgaver::getPlusOpgave()
 {
-    int tal = static_cast<int>(mPlusMaxSum * 0.6);
+    int tal = static_cast<int>(mMaxSum * 0.6);
     int a, b;
     do
     {
         a = QRandomGenerator::global()->bounded(2, tal);
         b = QRandomGenerator::global()->bounded(2, tal);
-    } while (a + b > mPlusMaxSum);
+    } while (a + b > mMaxSum);
     return QString(QString::number(a) + "," + QString::number(b));
 }
 

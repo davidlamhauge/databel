@@ -20,6 +20,7 @@ private:
     Ui::MainWindow *ui;
 
     void setupOptions();
+    void removeLayout();
 
     void setupPlus();
     void setPlusAntal(int antal) {mPlusAntal = antal; }
@@ -29,6 +30,7 @@ private:
     void setupMinus();
     void setMinusAntal(int antal) {mMinusAntal = antal; }
     void setMinusMaxTal(int maxTal) {mMinusMaxTal = maxTal; }
+    void setNegativeResult(int state);
     void minusChosen();
 
     void setupGange();

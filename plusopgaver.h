@@ -21,15 +21,15 @@ public:
 private:
     Ui::PlusOpgaver *ui;
 
-    void restartPLus();
+    void restartPlus();
 
     void setPlusOpgave();
     QString getPlusOpgave();
     void checkPlusOpgave();
     void solvePlus();
 
-    int mPlusOpgaver;
-    int mPlusMaxSum;
+    int mOpgaver;
+    int mMaxSum;
 
     int m1 = 0;
     int m2 = 0;
