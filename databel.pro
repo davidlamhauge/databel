@@ -11,14 +11,17 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    minusopgaver.cpp \
     plusopgaver.cpp
 
 HEADERS += \
     mainwindow.h \
+    minusopgaver.h \
     plusopgaver.h
 
 FORMS += \
     mainwindow.ui \
+    minusopgaver.ui \
     plusopgaver.ui
 
 # Default rules for deployment.

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PlusOpgaver</class>
- <widget class="QWidget" name="PlusOpgaver">
+ <class>MinusOpgaver</class>
+ <widget class="QWidget" name="MinusOpgaver">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>353</width>
-    <height>190</height>
+    <width>282</width>
+    <height>188</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Plus</string>
+   <string>Minus-opgaver</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="labAntalText">
+      <widget class="QLabel" name="lab1_AntalText">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -29,7 +29,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labSolved">
+      <widget class="QLabel" name="lab1_nummer">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -41,84 +41,19 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labAfMax">
+      <widget class="QLabel" name="lab1_af">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">
-        <string> af </string>
+        <string>af</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labIalt">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string notr="true">0</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="labTextRigtige">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Antal rigtige:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labRigtige">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string notr="true">0</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labAf">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string notr="true">/</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labMulige">
+      <widget class="QLabel" name="lab1_ialt">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -147,10 +82,22 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="labTal1">
+      <widget class="QLabel" name="lab2_AntalText">
        <property name="font">
         <font>
-         <pointsize>18</pointsize>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Antal rigtige:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lab2_correct">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">
@@ -159,50 +106,26 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labPlusTegfn">
+      <widget class="QLabel" name="lab2_af">
        <property name="font">
         <font>
-         <pointsize>18</pointsize>
+         <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">
-        <string notr="true">+</string>
+        <string>af</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labTal2">
+      <widget class="QLabel" name="lab2_solved">
        <property name="font">
         <font>
-         <pointsize>18</pointsize>
+         <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">
         <string notr="true">0</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labLigMed">
-       <property name="font">
-        <font>
-         <pointsize>18</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string notr="true">=</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="leResult">
-       <property name="font">
-        <font>
-         <pointsize>18</pointsize>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>Afslut med ENTER</string>
        </property>
       </widget>
      </item>
@@ -222,23 +145,77 @@
     </layout>
    </item>
    <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QLabel" name="labElapsed">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string notr="true">0</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string notr="true">-</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string notr="true">0</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string notr="true">=</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leResult">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="labTime">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">
-        <string/>
+        <string>0</string>
        </property>
       </widget>
      </item>

@@ -4,7 +4,9 @@
 #include "plusopgaver.h"
 
 #include <QSpinBox>
+#include <QCheckBox>
 #include <QPushButton>
+#include <QRadioButton>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,8 +14,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setupOptions();
+    setWindowTitle("databel");
 
     connect(ui->btnExit, &QPushButton::clicked, this, &MainWindow::close);
+    connect(ui->rbPlus, &QRadioButton::toggled, this, &MainWindow::setupOptions);
 }
 
 MainWindow::~MainWindow()
@@ -76,7 +80,44 @@ void MainWindow::plusChosen()
 
 void MainWindow::setupMinus()
 {
+    QGridLayout* grid = new QGridLayout;
 
+    QLabel* labOpgaveAntal = new QLabel(tr("Antal opgaver:"));
+    QSpinBox* sbAntal = new QSpinBox;
+    sbAntal->setMinimum(10);
+    sbAntal->setMaximum(100);
+    sbAntal->setValue(20);
+    mMinusAntal = 20;
+    sbAntal->setToolTip(tr("Interval: 10-100"));
+    grid->addWidget(labOpgaveAntal,0, 0);
+    grid->addWidget(sbAntal,0, 1);
+
+    QLabel* labMaxTal = new QLabel(tr("Ikke tal større end:"));
+    QSpinBox* sbMaxTal = new QSpinBox;
+    sbMaxTal->setMinimum(20);
+    sbMaxTal->setMaximum(500);
+    sbMaxTal->setValue(50);
+    mMinusMaxTal = 50;
+    sbMaxTal->setToolTip(tr("Interval: 20-500"));
+    grid->addWidget(labMaxTal,1, 0);
+    grid->addWidget(sbMaxTal,1, 1);
+
+    QCheckBox* cb = new QCheckBox(tr("Tillad negativ differens"));
+    grid->addWidget(cb, 2, 1);
+
+    QPushButton* btnOK = new QPushButton(tr("Gå til Minus-opgaver"));
+    grid->addWidget(btnOK, 3, 1);
+
+    // connects
+    connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setMinusAntal);
+    connect(sbMaxTal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setMinusMaxTal);
+    connect(btnOK, &QPushButton::clicked, this, &MainWindow::minusChosen);
+
+    ui->groupBox->setLayout(grid);
+}
+
+void MainWindow::minusChosen()
+{
 }
 
 void MainWindow::setupGange()

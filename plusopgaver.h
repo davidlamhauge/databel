@@ -16,8 +16,12 @@ public:
     explicit PlusOpgaver(int antal, int maxSum, QWidget *parent = nullptr);
     ~PlusOpgaver();
 
+    bool eventFilter(QObject* obj, QEvent* e);
+
 private:
     Ui::PlusOpgaver *ui;
+
+    void restartPLus();
 
     void setPlusOpgave();
     QString getPlusOpgave();

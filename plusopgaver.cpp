@@ -3,19 +3,23 @@
 
 #include <QDebug>
 #include <QRandomGenerator>
+#include <QKeyEvent>
 
 PlusOpgaver::PlusOpgaver(int antal, int maxSum, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PlusOpgaver)
 {
     ui->setupUi(this);
+
+    ui->leResult->installEventFilter(this);
+
     mPlusOpgaver = antal;
     mPlusMaxSum = maxSum;
 
     ui->labIalt->setText(QString::number(mPlusOpgaver));
 
     connect(ui->btnExit, &QPushButton::clicked, this, &PlusOpgaver::close);
-    connect(ui->btnSolved, &QPushButton::clicked, this, &PlusOpgaver::checkPlusOpgave);
+    connect(ui->btnOnceMore, &QPushButton::clicked, this, &PlusOpgaver::restartPLus);
 
     timer.start();
     setPlusOpgave();
@@ -24,6 +28,40 @@ PlusOpgaver::PlusOpgaver(int antal, int maxSum, QWidget *parent) :
 PlusOpgaver::~PlusOpgaver()
 {
     delete ui;
+}
+
+bool PlusOpgaver::eventFilter(QObject *obj, QEvent *e)
+{
+    if (obj == ui->leResult)
+    {
+        if (e->type() == QEvent::KeyPress)
+        {
+            QKeyEvent *k = static_cast<QKeyEvent*>(e);
+            if (k->key() == Qt::Key_Return)
+            {
+                checkPlusOpgave();
+                return true;
+            }
+            else
+            {
+                return QWidget::eventFilter(obj, e);
+            }
+        }
+    }
+    return QWidget::eventFilter(obj, e);
+}
+
+void PlusOpgaver::restartPLus()
+{
+    mResult = 0;
+    mSolved = 0;
+    mCorrect = 0;
+
+    ui->leResult->setEnabled(true);
+    ui->labElapsed->setText("");
+
+    timer.restart();
+    setPlusOpgave();
 }
 
 void PlusOpgaver::setPlusOpgave()
@@ -36,8 +74,7 @@ void PlusOpgaver::setPlusOpgave()
     else
     {
         ui->leResult->setEnabled(false);
-        ui->btnSolved->setEnabled(false);
-        int elapsed = timer.elapsed() / 1000;
+        float elapsed = timer.elapsed() / 1000.0;
         ui->labElapsed->setText(QString::number(elapsed) + " sek.");
     }
 }
@@ -48,8 +85,8 @@ QString PlusOpgaver::getPlusOpgave()
     int a, b;
     do
     {
-        a = QRandomGenerator::global()->bounded(tal);
-        b = QRandomGenerator::global()->bounded(tal);
+        a = QRandomGenerator::global()->bounded(2, tal);
+        b = QRandomGenerator::global()->bounded(2, tal);
     } while (a + b > mPlusMaxSum);
     return QString(QString::number(a) + "," + QString::number(b));
 }

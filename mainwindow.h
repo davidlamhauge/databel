@@ -27,6 +27,9 @@ private:
     void plusChosen();
 
     void setupMinus();
+    void setMinusAntal(int antal) {mMinusAntal = antal; }
+    void setMinusMaxTal(int maxTal) {mMinusMaxTal = maxTal; }
+    void minusChosen();
 
     void setupGange();
 
@@ -35,5 +38,10 @@ private:
     // PLUS member vars
     int mPlusAntal;
     int mPlusMaxSum;
+
+    // MINUS member vars
+    int mMinusAntal;
+    int mMinusMaxTal;
+    bool mNegativeResult = false;
 };
 #endif // MAINWINDOW_H
