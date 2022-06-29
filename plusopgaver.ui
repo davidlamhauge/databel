@@ -53,7 +53,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labIalt">
+      <widget class="QLabel" name="labAntal">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -147,7 +147,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="labTal1">
+      <widget class="QLabel" name="labFirst">
        <property name="font">
         <font>
          <pointsize>18</pointsize>
@@ -159,7 +159,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labPlusTegfn">
+      <widget class="QLabel" name="labPlusTegn">
        <property name="font">
         <font>
          <pointsize>18</pointsize>
@@ -171,7 +171,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labTal2">
+      <widget class="QLabel" name="labSecond">
        <property name="font">
         <font>
          <pointsize>18</pointsize>

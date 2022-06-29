@@ -16,7 +16,7 @@ PlusOpgaver::PlusOpgaver(int antal, int maxSum, QWidget *parent) :
     mOpgaver = antal;
     mMaxSum = maxSum;
 
-    ui->labIalt->setText(QString::number(mOpgaver));
+    ui->labAntal->setText(QString::number(mOpgaver));
 
     connect(ui->btnExit, &QPushButton::clicked, this, &PlusOpgaver::close);
     connect(ui->btnOnceMore, &QPushButton::clicked, this, &PlusOpgaver::restartPlus);
@@ -109,8 +109,8 @@ void PlusOpgaver::solvePlus()
     m1 = list.first().toInt();
     m2 = list.last().toInt();
     mResult = m1 + m2;
-    ui->labTal1->setText(list.first());
-    ui->labTal2->setText(list.last());
+    ui->labFirst->setText(list.first());
+    ui->labSecond->setText(list.last());
     ui->leResult->clear();
     ui->leResult->setFocus();
 }

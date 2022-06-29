@@ -29,7 +29,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lab1_nummer">
+      <widget class="QLabel" name="labSolved">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -53,7 +53,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="lab1_ialt">
+      <widget class="QLabel" name="labAntal">
        <property name="font">
         <font>
          <pointsize>12</pointsize>

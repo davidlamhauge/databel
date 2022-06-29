@@ -17,7 +17,7 @@ MinusOpgaver::MinusOpgaver(int antal, int maxTal, bool negativeResult, QWidget *
     mMaxTal = maxTal;
     mNegativDiff = negativeResult;
 
-    ui->lab1_ialt->setText(QString::number(mOpgaver));
+    ui->labAntal->setText(QString::number(mOpgaver));
 
     connect(ui->btnExit, &QPushButton::clicked, this, &MinusOpgaver::close);
     connect(ui->btnOnceMore, &QPushButton::clicked, this, &MinusOpgaver::restartMinus);
@@ -68,7 +68,7 @@ void MinusOpgaver::restartMinus()
 void MinusOpgaver::setMinusOpgave()
 {
     ui->labRigtige->setText(QString::number(mCorrect));
-    ui->lab1_nummer->setText(QString::number(mSolved));
+    ui->labSolved->setText(QString::number(mSolved));
     ui->labMulige->setText(QString::number(mSolved));
     if (mSolved < mOpgaver)
         solveMinus();
