@@ -17,6 +17,9 @@
    <iconset resource="img.qrc">
     <normaloff>:/img/logo.ico</normaloff>:/img/logo.ico</iconset>
   </property>
+  <property name="toolTip">
+   <string>Afslut med ENTER</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
