@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setupOptions();
-    setWindowTitle("databel");
+    setWindowTitle("databel - v. " APP_VERSION);
 
     connect(ui->btnExit, &QPushButton::clicked, this, &MainWindow::close);
     connect(ui->rbPlus, &QRadioButton::toggled, this, &MainWindow::setupOptions);

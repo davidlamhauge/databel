@@ -84,7 +84,6 @@ QString GangeOpgaver::getGangeOpgave()
 {
     int tal1 = QRandomGenerator::global()->bounded(2, mMaxTal);
     int tal2 = QRandomGenerator::global()->bounded(2, mMaxTal);
-    qDebug() << tal1 << " * " << tal2 << " maxtal: "  << mMaxTal;
     return QString(QString::number(tal1) + "," + QString::number(tal2));
 }
 
