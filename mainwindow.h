@@ -36,6 +36,9 @@ private:
     void setupGange();
 
     void setupDivision();
+    void setDiviAntal(int antal) {mDiviAntal = antal; }
+    void setDiviMaxTal(int maxTal) {mDiviMaxTal = maxTal; }
+    void diviChosen();
 
     // PLUS member vars
     int mPlusAntal;
@@ -45,5 +48,10 @@ private:
     int mMinusAntal;
     int mMinusMaxTal;
     bool mNegativeResult = false;
+
+    // DIVISION member vars
+    int mDiviAntal;
+    int mDiviMaxTal;
+
 };
 #endif // MAINWINDOW_H

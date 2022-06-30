@@ -3,6 +3,7 @@
 
 #include "plusopgaver.h"
 #include "minusopgaver.h"
+#include "diviopgaver.h"
 
 #include <QSpinBox>
 #include <QCheckBox>
@@ -162,5 +163,43 @@ void MainWindow::setupDivision()
 {
     removeLayout();
 
+    QGridLayout* grid = new QGridLayout;
+
+    QLabel* labOpgaveAntal = new QLabel(tr("Antal opgaver:"));
+    QSpinBox* sbAntal = new QSpinBox;
+    sbAntal->setMinimum(10);
+    sbAntal->setMaximum(100);
+    sbAntal->setValue(20);
+    mDiviAntal = 20;
+    sbAntal->setToolTip(tr("Interval: 10-100"));
+    grid->addWidget(labOpgaveAntal,0, 0);
+    grid->addWidget(sbAntal,0, 1);
+
+    QLabel* labMaxTal = new QLabel(tr("Ikke dividend større end:"));
+    QSpinBox* sbMaxTal = new QSpinBox;
+    sbMaxTal->setMinimum(20);
+    sbMaxTal->setMaximum(1000);
+    sbMaxTal->setValue(50);
+    mDiviMaxTal = 50;
+    sbMaxTal->setToolTip(tr("Interval: 20-1000"));
+    grid->addWidget(labMaxTal,1, 0);
+    grid->addWidget(sbMaxTal,1, 1);
+
+    QPushButton* btnOK = new QPushButton(tr("Gå til Divisions-opgaver"));
+    grid->addWidget(btnOK, 2, 1);
+
+    // connects
+    connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setDiviAntal);
+    connect(sbMaxTal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setDiviMaxTal);
+    connect(btnOK, &QPushButton::clicked, this, &MainWindow::diviChosen);
+
+    ui->groupBox->setLayout(grid);
+
+}
+
+void MainWindow::diviChosen()
+{
+    DiviOpgaver* diviOpg = new DiviOpgaver(mDiviAntal, mDiviMaxTal);
+    diviOpg->show();
 }
 

@@ -9,17 +9,20 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    diviopgaver.cpp \
     main.cpp \
     mainwindow.cpp \
     minusopgaver.cpp \
     plusopgaver.cpp
 
 HEADERS += \
+    diviopgaver.h \
     mainwindow.h \
     minusopgaver.h \
     plusopgaver.h
 
 FORMS += \
+    diviopgaver.ui \
     mainwindow.ui \
     minusopgaver.ui \
     plusopgaver.ui
