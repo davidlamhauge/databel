@@ -18,6 +18,7 @@ MinusOpgaver::MinusOpgaver(int antal, int maxTal, bool negativeResult, QWidget *
     mNegativDiff = negativeResult;
 
     ui->labAntal->setText(QString::number(mOpgaver));
+    ui->labElapsed->setText("");
 
     connect(ui->btnExit, &QPushButton::clicked, this, &MinusOpgaver::close);
     connect(ui->btnOnceMore, &QPushButton::clicked, this, &MinusOpgaver::restartMinus);
