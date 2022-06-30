@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     diviopgaver.cpp \
+    gangeopgaver.cpp \
     main.cpp \
     mainwindow.cpp \
     minusopgaver.cpp \
@@ -17,12 +18,14 @@ SOURCES += \
 
 HEADERS += \
     diviopgaver.h \
+    gangeopgaver.h \
     mainwindow.h \
     minusopgaver.h \
     plusopgaver.h
 
 FORMS += \
     diviopgaver.ui \
+    gangeopgaver.ui \
     mainwindow.ui \
     minusopgaver.ui \
     plusopgaver.ui

@@ -34,6 +34,9 @@ private:
     void minusChosen();
 
     void setupGange();
+    void setGangeAntal(int antal) {mGangeAntal = antal; }
+    void setGangeMaxTal(int maxTal) {mGangeMaxTal = maxTal; }
+    void gangeChosen();
 
     void setupDivision();
     void setDiviAntal(int antal) {mDiviAntal = antal; }
@@ -48,6 +51,10 @@ private:
     int mMinusAntal;
     int mMinusMaxTal;
     bool mNegativeResult = false;
+
+    // GANGE member vars
+    int mGangeAntal;
+    int mGangeMaxTal;
 
     // DIVISION member vars
     int mDiviAntal;

@@ -1,13 +1,13 @@
-#include "diviopgaver.h"
-#include "ui_diviopgaver.h"
+#include "gangeopgaver.h"
+#include "ui_gangeopgaver.h"
 
 #include <QDebug>
 #include <QRandomGenerator>
 #include <QKeyEvent>
 
-DiviOpgaver::DiviOpgaver(int antal, int maxDividend, QWidget *parent) :
+GangeOpgaver::GangeOpgaver(int antal, int maxTal, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::DiviOpgaver)
+    ui(new Ui::GangeOpgaver)
 {
     ui->setupUi(this);
 
@@ -15,23 +15,23 @@ DiviOpgaver::DiviOpgaver(int antal, int maxDividend, QWidget *parent) :
     ui->labElapsed->setText("");
 
     mOpgaver = antal;
-    mMaxDividend = maxDividend;
+    mMaxTal = maxTal;
 
     ui->labAntal->setText(QString::number(mOpgaver));
 
-    connect(ui->btnExit, &QPushButton::clicked, this, &DiviOpgaver::close);
-    connect(ui->btnOnceMore, &QPushButton::clicked, this, &DiviOpgaver::restartDivi);
+    connect(ui->btnExit, &QPushButton::clicked, this, &GangeOpgaver::close);
+    connect(ui->btnOnceMore, &QPushButton::clicked, this, &GangeOpgaver::restartGange);
 
     timer.start();
-    setDiviOpgave();
+    setGangeOpgave();
 }
 
-DiviOpgaver::~DiviOpgaver()
+GangeOpgaver::~GangeOpgaver()
 {
     delete ui;
 }
 
-bool DiviOpgaver::eventFilter(QObject *obj, QEvent *e)
+bool GangeOpgaver::eventFilter(QObject *obj, QEvent *e)
 {
     if (obj == ui->leResult)
     {
@@ -40,7 +40,7 @@ bool DiviOpgaver::eventFilter(QObject *obj, QEvent *e)
             QKeyEvent *k = static_cast<QKeyEvent*>(e);
             if (k->key() == Qt::Key_Return)
             {
-                checkDiviOpgave();
+                checkGangeOpgave();
                 return true;
             }
             else
@@ -52,7 +52,7 @@ bool DiviOpgaver::eventFilter(QObject *obj, QEvent *e)
     return QWidget::eventFilter(obj, e);
 }
 
-void DiviOpgaver::restartDivi()
+void GangeOpgaver::restartGange()
 {
     mResult = 0;
     mSolved = 0;
@@ -62,16 +62,16 @@ void DiviOpgaver::restartDivi()
     ui->labElapsed->setText("");
 
     timer.restart();
-    setDiviOpgave();
+    setGangeOpgave();
 }
 
-void DiviOpgaver::setDiviOpgave()
+void GangeOpgaver::setGangeOpgave()
 {
     ui->labRigtige->setText(QString::number(mCorrect));
     ui->labSolved->setText(QString::number(mSolved));
     ui->labMulige->setText(QString::number(mSolved));
     if (mSolved < mOpgaver)
-        solveDivi();
+        solveGange();
     else
     {
         ui->leResult->setEnabled(false);
@@ -80,30 +80,15 @@ void DiviOpgaver::setDiviOpgave()
     }
 }
 
-QString DiviOpgaver::getDiviOpgave()
+QString GangeOpgaver::getGangeOpgave()
 {
-    QList<int> divisorer;
-    int tal;
-    do
-    {
-        tal = QRandomGenerator::global()->bounded(10, mMaxDividend);
-        divisorer = getDivisors(tal);
-    } while (divisorer.size() < 3);
-    int antal = divisorer.count();
-    int pos = QRandomGenerator::global()->bounded(1, antal - 1);
-    return QString(QString::number(tal) + "," + QString::number(divisorer.at(pos)));
+    int tal1 = QRandomGenerator::global()->bounded(2, mMaxTal);
+    int tal2 = QRandomGenerator::global()->bounded(2, mMaxTal);
+    qDebug() << tal1 << " * " << tal2 << " maxtal: "  << mMaxTal;
+    return QString(QString::number(tal1) + "," + QString::number(tal2));
 }
 
-QList<int> DiviOpgaver::getDivisors(int num)
-{
-    QList<int> divisors;
-    for (int i = 1; i <= num; i++)
-        if (num % i == 0)
-            divisors.append(i);
-    return divisors;
-}
-
-void DiviOpgaver::checkDiviOpgave()
+void GangeOpgaver::checkGangeOpgave()
 {
     int guess = ui->leResult->text().toInt();
     if (guess == mResult)
@@ -111,16 +96,16 @@ void DiviOpgaver::checkDiviOpgave()
         mCorrect++;
     }
     mSolved++;
-    setDiviOpgave();
+    setGangeOpgave();
 }
 
-void DiviOpgaver::solveDivi()
+void GangeOpgaver::solveGange()
 {
-    QString opg = getDiviOpgave();
+    QString opg = getGangeOpgave();
     QStringList list = opg.split(",");
     m1 = list.first().toInt();
     m2 = list.last().toInt();
-    mResult = m1 / m2;
+    mResult = m1 * m2;
     ui->labFirst->setText(list.first());
     ui->labSecond->setText(list.last());
     ui->leResult->clear();

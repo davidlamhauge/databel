@@ -3,6 +3,7 @@
 
 #include "plusopgaver.h"
 #include "minusopgaver.h"
+#include "gangeopgaver.h"
 #include "diviopgaver.h"
 
 #include <QSpinBox>
@@ -157,6 +158,43 @@ void MainWindow::setupGange()
 {
     removeLayout();
 
+    QGridLayout* grid = new QGridLayout;
+
+    QLabel* labOpgaveAntal = new QLabel(tr("Antal opgaver:"));
+    QSpinBox* sbAntal = new QSpinBox;
+    sbAntal->setMinimum(10);
+    sbAntal->setMaximum(100);
+    sbAntal->setValue(20);
+    mGangeAntal = 20;
+    sbAntal->setToolTip(tr("Interval: 10-100"));
+    grid->addWidget(labOpgaveAntal,0, 0);
+    grid->addWidget(sbAntal,0, 1);
+
+    QLabel* labMaxTal = new QLabel(tr("Ikke faktorer større end:"));
+    QSpinBox* sbMaxTal = new QSpinBox;
+    sbMaxTal->setMinimum(5);
+    sbMaxTal->setMaximum(20);
+    sbMaxTal->setValue(10);
+    mGangeMaxTal = 10;
+    sbMaxTal->setToolTip(tr("Interval: 5-20"));
+    grid->addWidget(labMaxTal,1, 0);
+    grid->addWidget(sbMaxTal,1, 1);
+
+    QPushButton* btnOK = new QPushButton(tr("Gå til Gange-opgaver"));
+    grid->addWidget(btnOK, 2, 1);
+
+    // connects
+    connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setGangeAntal);
+    connect(sbMaxTal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setGangeMaxTal);
+    connect(btnOK, &QPushButton::clicked, this, &MainWindow::gangeChosen);
+
+    ui->groupBox->setLayout(grid);
+}
+
+void MainWindow::gangeChosen()
+{
+    GangeOpgaver* gangeOpg = new GangeOpgaver(mGangeAntal, mGangeMaxTal);
+    gangeOpg->show();
 }
 
 void MainWindow::setupDivision()
