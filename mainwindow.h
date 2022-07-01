@@ -13,6 +13,13 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    enum class taskType {
+        PLUS = 1,
+        MINUS = 2,
+        GANGE = 3,
+        DIVI = 4
+    };
+
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
@@ -22,47 +29,25 @@ private:
     void setupOptions();
     void removeLayout();
 
-    // PLUS member functions
+    // setup layouts
     void setupPlus();
-    void setPlusAntal(int antal) {mPlusAntal = antal; }
-    void setPlusMaxSum(int maxSum) {mPlusMaxSum = maxSum; }
-    void plusChosen();
-
-    // MINUS member functions
     void setupMinus();
-    void setMinusAntal(int antal) {mMinusAntal = antal; }
-    void setMinusMaxTal(int maxTal) {mMinusMaxTal = maxTal; }
-    void setNegativeResult(int state);
-    void minusChosen();
-
-    // GANGE member functions
     void setupGange();
-    void setGangeAntal(int antal) {mGangeAntal = antal; }
-    void setGangeMaxTal(int maxTal) {mGangeMaxTal = maxTal; }
-    void gangeChosen();
-
-    // DIVISION member functions
     void setupDivision();
-    void setDiviAntal(int antal) {mDiviAntal = antal; }
-    void setDiviMaxTal(int maxTal) {mDiviMaxTal = maxTal; }
-    void diviChosen();
 
-    // PLUS member vars
-    int mPlusAntal;
-    int mPlusMaxSum;
+    void setNegativeResult(int state);
 
-    // MINUS member vars
-    int mMinusAntal;
-    int mMinusMaxTal;
+    // COMMON member functions
+    void setupOption(int taskType);
+    void setOptionAntal(int antal) {mAntal = antal; }
+    void setOptionMax(int maxTal) {mMax = maxTal; }
+    void optionChosen();
+
+    // comon member vars
+    int mTaskType = 1;
+    int mAntal;
+    int mMax;
     bool mNegativeResult = false;
-
-    // GANGE member vars
-    int mGangeAntal;
-    int mGangeMaxTal;
-
-    // DIVISION member vars
-    int mDiviAntal;
-    int mDiviMaxTal;
 
 };
 #endif // MAINWINDOW_H

@@ -5,6 +5,7 @@
 #include "minusopgaver.h"
 #include "gangeopgaver.h"
 #include "diviopgaver.h"
+#include "solvetasks.h"
 
 #include <QSpinBox>
 #include <QCheckBox>
@@ -34,13 +35,25 @@ MainWindow::~MainWindow()
 void MainWindow::setupOptions()
 {
     if (ui->rbPlus->isChecked())
+    {
+        mTaskType = 1;
         setupPlus();
+    }
     else if (ui->rbMinus->isChecked())
+    {
+        mTaskType = 2;
         setupMinus();
+    }
     else if (ui->rbGange->isChecked())
+    {
+        mTaskType = 3;
         setupGange();
+    }
     else if (ui->rbDivision->isChecked())
+    {
+        mTaskType = 4;
         setupDivision();
+    }
 }
 
 void MainWindow::removeLayout()
@@ -67,7 +80,7 @@ void MainWindow::setupPlus()
     sbAntal->setMinimum(10);
     sbAntal->setMaximum(100);
     sbAntal->setValue(20);
-    mPlusAntal = 20;
+    mAntal = 20;
     sbAntal->setToolTip(tr("Interval: 10-100"));
     grid->addWidget(labOpgaveAntal,0, 0);
     grid->addWidget(sbAntal,0, 1);
@@ -77,7 +90,7 @@ void MainWindow::setupPlus()
     sbMaxSum->setMinimum(20);
     sbMaxSum->setMaximum(1000);
     sbMaxSum->setValue(50);
-    mPlusMaxSum = 50;
+    mMax = 50;
     sbMaxSum->setToolTip(tr("Interval: 20-1000"));
     grid->addWidget(labMaxSum,1, 0);
     grid->addWidget(sbMaxSum,1, 1);
@@ -86,17 +99,11 @@ void MainWindow::setupPlus()
     grid->addWidget(btnOK, 2, 1);
 
     // connects
-    connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setPlusAntal);
-    connect(sbMaxSum, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setPlusMaxSum);
-    connect(btnOK, &QPushButton::clicked, this, &MainWindow::plusChosen);
+    connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setOptionAntal);
+    connect(sbMaxSum, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setOptionMax);
+    connect(btnOK, &QPushButton::clicked, this, &MainWindow::optionChosen);
 
     ui->groupBox->setLayout(grid);
-}
-
-void MainWindow::plusChosen()
-{
-    PlusOpgaver* plusOpg = new PlusOpgaver(mPlusAntal, mPlusMaxSum);
-    plusOpg->show();
 }
 
 void MainWindow::setupMinus()
@@ -110,7 +117,7 @@ void MainWindow::setupMinus()
     sbAntal->setMinimum(10);
     sbAntal->setMaximum(100);
     sbAntal->setValue(20);
-    mMinusAntal = 20;
+    mAntal = 20;
     sbAntal->setToolTip(tr("Interval: 10-100"));
     grid->addWidget(labOpgaveAntal,0, 0);
     grid->addWidget(sbAntal,0, 1);
@@ -120,7 +127,7 @@ void MainWindow::setupMinus()
     sbMaxTal->setMinimum(20);
     sbMaxTal->setMaximum(500);
     sbMaxTal->setValue(50);
-    mMinusMaxTal = 50;
+    mMax = 50;
     sbMaxTal->setToolTip(tr("Interval: 20-500"));
     grid->addWidget(labMaxTal,1, 0);
     grid->addWidget(sbMaxTal,1, 1);
@@ -132,26 +139,12 @@ void MainWindow::setupMinus()
     grid->addWidget(btnOK, 3, 1);
 
     // connects
-    connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setMinusAntal);
-    connect(sbMaxTal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setMinusMaxTal);
+    connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setOptionAntal);
+    connect(sbMaxTal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setOptionMax);
     connect(cb, &QCheckBox::stateChanged, this, &MainWindow::setNegativeResult);
-    connect(btnOK, &QPushButton::clicked, this, &MainWindow::minusChosen);
+    connect(btnOK, &QPushButton::clicked, this, &MainWindow::optionChosen);
 
     ui->groupBox->setLayout(grid);
-}
-
-void MainWindow::setNegativeResult(int state)
-{
-    if (state == 2)
-        mNegativeResult = true;
-    else
-        mNegativeResult = false;
-}
-
-void MainWindow::minusChosen()
-{
-    MinusOpgaver* minusOpg = new MinusOpgaver(mMinusAntal, mMinusMaxTal, mNegativeResult);
-    minusOpg->show();
 }
 
 void MainWindow::setupGange()
@@ -165,7 +158,7 @@ void MainWindow::setupGange()
     sbAntal->setMinimum(10);
     sbAntal->setMaximum(100);
     sbAntal->setValue(20);
-    mGangeAntal = 20;
+    mAntal = 20;
     sbAntal->setToolTip(tr("Interval: 10-100"));
     grid->addWidget(labOpgaveAntal,0, 0);
     grid->addWidget(sbAntal,0, 1);
@@ -175,7 +168,7 @@ void MainWindow::setupGange()
     sbMaxTal->setMinimum(5);
     sbMaxTal->setMaximum(20);
     sbMaxTal->setValue(10);
-    mGangeMaxTal = 10;
+    mMax = 10;
     sbMaxTal->setToolTip(tr("Interval: 5-20"));
     grid->addWidget(labMaxTal,1, 0);
     grid->addWidget(sbMaxTal,1, 1);
@@ -184,17 +177,11 @@ void MainWindow::setupGange()
     grid->addWidget(btnOK, 2, 1);
 
     // connects
-    connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setGangeAntal);
-    connect(sbMaxTal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setGangeMaxTal);
-    connect(btnOK, &QPushButton::clicked, this, &MainWindow::gangeChosen);
+    connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setOptionAntal);
+    connect(sbMaxTal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setOptionMax);
+    connect(btnOK, &QPushButton::clicked, this, &MainWindow::optionChosen);
 
     ui->groupBox->setLayout(grid);
-}
-
-void MainWindow::gangeChosen()
-{
-    GangeOpgaver* gangeOpg = new GangeOpgaver(mGangeAntal, mGangeMaxTal);
-    gangeOpg->show();
 }
 
 void MainWindow::setupDivision()
@@ -208,7 +195,7 @@ void MainWindow::setupDivision()
     sbAntal->setMinimum(10);
     sbAntal->setMaximum(100);
     sbAntal->setValue(20);
-    mDiviAntal = 20;
+    mAntal = 20;
     sbAntal->setToolTip(tr("Interval: 10-100"));
     grid->addWidget(labOpgaveAntal,0, 0);
     grid->addWidget(sbAntal,0, 1);
@@ -218,7 +205,7 @@ void MainWindow::setupDivision()
     sbMaxTal->setMinimum(20);
     sbMaxTal->setMaximum(1000);
     sbMaxTal->setValue(50);
-    mDiviMaxTal = 50;
+    mMax = 50;
     sbMaxTal->setToolTip(tr("Interval: 20-1000"));
     grid->addWidget(labMaxTal,1, 0);
     grid->addWidget(sbMaxTal,1, 1);
@@ -227,17 +214,36 @@ void MainWindow::setupDivision()
     grid->addWidget(btnOK, 2, 1);
 
     // connects
-    connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setDiviAntal);
-    connect(sbMaxTal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setDiviMaxTal);
-    connect(btnOK, &QPushButton::clicked, this, &MainWindow::diviChosen);
+    connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setOptionAntal);
+    connect(sbMaxTal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setOptionMax);
+    connect(btnOK, &QPushButton::clicked, this, &MainWindow::optionChosen);
 
     ui->groupBox->setLayout(grid);
 
 }
 
-void MainWindow::diviChosen()
+void MainWindow::setNegativeResult(int state)
 {
-    DiviOpgaver* diviOpg = new DiviOpgaver(mDiviAntal, mDiviMaxTal);
-    diviOpg->show();
+    if (state == 2)
+        mNegativeResult = true;
+    else
+        mNegativeResult = false;
+}
+
+void MainWindow::setupOption(int taskType)
+{
+    switch (taskType) {
+    case 1: setupPlus(); break;
+    case 2: setupMinus(); break;
+    case 3: setupGange(); break;
+    case 4: setupDivision(); break;
+    default: setupPlus(); break;
+    }
+}
+
+void MainWindow::optionChosen()
+{
+    SolveTasks* solve = new SolveTasks(mTaskType, mAntal, mMax, mNegativeResult);
+    solve->show();
 }
 

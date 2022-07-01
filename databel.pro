@@ -17,21 +17,24 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     minusopgaver.cpp \
-    plusopgaver.cpp
+    plusopgaver.cpp \
+    solvetasks.cpp
 
 HEADERS += \
     diviopgaver.h \
     gangeopgaver.h \
     mainwindow.h \
     minusopgaver.h \
-    plusopgaver.h
+    plusopgaver.h \
+    solvetasks.h
 
 FORMS += \
     diviopgaver.ui \
     gangeopgaver.ui \
     mainwindow.ui \
     minusopgaver.ui \
-    plusopgaver.ui
+    plusopgaver.ui \
+    solvetasks.ui
 
 TRANSLATIONS += \
     lang/daspelling_en.ts
