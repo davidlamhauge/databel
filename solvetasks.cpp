@@ -2,6 +2,8 @@
 #include "ui_solvetasks.h"
 
 #include <QKeyEvent>
+#include <QRandomGenerator>
+
 SolveTasks::SolveTasks(int type, int antal, int max, bool negatives, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SolveTasks)
@@ -60,91 +62,114 @@ bool SolveTasks::eventFilter(QObject *obj, QEvent *e)
 
 void SolveTasks::restartTasks()
 {
-    switch (mTaskType) {
-    case 1:
-        mResult = 0;
-        mSolved = 0;
-        mCorrect = 0;
+    mResult = 0;
+    mSolved = 0;
+    mCorrect = 0;
 
-        ui->leResult->setEnabled(true);
-        ui->labElapsed->setText("");
+    ui->leResult->setEnabled(true);
+    ui->labElapsed->setText("");
 
-        timer.restart();
-        setTasks();
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
-    default:
-        break;
-    }
+    timer.restart();
+    setTasks();
 }
 
 void SolveTasks::setTasks()
 {
-    switch (mTaskType) {
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
-    default:
-        break;
+    ui->labRigtige->setText(QString::number(mCorrect));
+    ui->labSolved->setText(QString::number(mSolved));
+    ui->labMulige->setText(QString::number(mSolved));
+    if (mSolved < mAntal)
+        solveTask();
+    else
+    {
+        ui->leResult->setEnabled(false);
+        float elapsed = timer.elapsed() / 1000.0;
+        ui->labElapsed->setText(QString::number(elapsed) + " sek.");
     }
 }
 
 QString SolveTasks::getTasks()
 {
-    switch (mTaskType) {
+    int a = 0, b = 0;
+
+    switch (mTaskType)
+    {
     case 1:
+    {
+        int tal = static_cast<int>(mMax * 0.6);
+        do
+        {
+            a = QRandomGenerator::global()->bounded(2, tal);
+            b = QRandomGenerator::global()->bounded(2, tal);
+        } while (a + b > mMax);
         break;
+    }
     case 2:
+    {
+        a = QRandomGenerator::global()->bounded(2, mMax);
+        b = QRandomGenerator::global()->bounded(2, mMax);
+        if (!mNegativeResult && a < b)
+        {
+            int tmp = a;
+            a = b;
+            b = tmp;
+        }
         break;
+    }
     case 3:
+
+        a = QRandomGenerator::global()->bounded(2, mMax);
+        b = QRandomGenerator::global()->bounded(2, mMax);
+
         break;
     case 4:
+    {
+    }
         break;
     default:
+    {
+        int tal = static_cast<int>(mMax * 0.6);
+        do
+        {
+            a = QRandomGenerator::global()->bounded(2, tal);
+            b = QRandomGenerator::global()->bounded(2, tal);
+        } while (a + b > mMax);
         break;
     }
 
-    return QString();
+    }
+
+    return QString(QString::number(a) + "," + QString::number(b));
 }
 
 void SolveTasks::checkTasks()
 {
-    switch (mTaskType) {
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
-    default:
-        break;
+    int guess = ui->leResult->text().toInt();
+    if (guess == mResult)
+    {
+        mCorrect++;
     }
+    mSolved++;
+    setTasks();
 }
 
 void SolveTasks::solveTask()
 {
+    QString opg = getTasks();
+    QStringList list = opg.split(",");
+    m1 = list.first().toInt();
+    m2 = list.last().toInt();
+
     switch (mTaskType) {
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
-    default:
-        break;
+    case 1: mResult = m1 + m2; break;
+    case 2: mResult = m1 - m2; break;
+    case 3: mResult = m1 * m2; break;
+    case 4: mResult = m1 / m2; break;
+    default: mResult = m1 + m2; break;
     }
+
+    ui->labFirst->setText(list.first());
+    ui->labSecond->setText(list.last());
+    ui->leResult->clear();
+    ui->leResult->setFocus();
 }
