@@ -27,10 +27,10 @@ private:
     QString getTasks();
     void checkTasks();
     void solveTask();
+    QList<int> getDivisors(int num);
 
     int m1 = 0;
     int m2 = 0;
-    bool mCont = false;
 
     int mResult = 0;
     int mSolved = 0;

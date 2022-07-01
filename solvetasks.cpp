@@ -117,13 +117,21 @@ QString SolveTasks::getTasks()
         break;
     }
     case 3:
-
         a = QRandomGenerator::global()->bounded(2, mMax);
         b = QRandomGenerator::global()->bounded(2, mMax);
-
         break;
     case 4:
     {
+        QList<int> divisorer;
+        int tal;
+        do
+        {
+            tal = QRandomGenerator::global()->bounded(10, mMax);
+            divisorer = getDivisors(tal);
+        } while (divisorer.size() < 3);
+        int antal = divisorer.count();
+        int pos = QRandomGenerator::global()->bounded(1, antal - 1);
+        return QString(QString::number(tal) + "," + QString::number(divisorer.at(pos)));
     }
         break;
     default:
@@ -173,3 +181,37 @@ void SolveTasks::solveTask()
     ui->leResult->clear();
     ui->leResult->setFocus();
 }
+
+QList<int> SolveTasks::getDivisors(int num)
+{
+    QList<int> divisors;
+    for (int i = 1; i <= num; i++)
+        if (num % i == 0)
+            divisors.append(i);
+    return divisors;
+}
+/*
+QString DiviOpgaver::getDiviOpgave()
+{
+    QList<int> divisorer;
+    int tal;
+    do
+    {
+        tal = QRandomGenerator::global()->bounded(10, mMaxDividend);
+        divisorer = getDivisors(tal);
+    } while (divisorer.size() < 3);
+    int antal = divisorer.count();
+    int pos = QRandomGenerator::global()->bounded(1, antal - 1);
+    return QString(QString::number(tal) + "," + QString::number(divisorer.at(pos)));
+}
+
+QList<int> DiviOpgaver::getDivisors(int num)
+{
+    QList<int> divisors;
+    for (int i = 1; i <= num; i++)
+        if (num % i == 0)
+            divisors.append(i);
+    return divisors;
+}
+
+*/

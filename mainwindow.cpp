@@ -1,10 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "plusopgaver.h"
-#include "minusopgaver.h"
-#include "gangeopgaver.h"
-#include "diviopgaver.h"
 #include "solvetasks.h"
 
 #include <QSpinBox>
