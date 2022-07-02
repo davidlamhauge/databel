@@ -2,5 +2,15 @@
     <qresource prefix="/">
         <file>img/tegn.png</file>
         <file>img/logo.ico</file>
+        <file>img/Flag_DE.png</file>
+        <file>img/Flag_DK.png</file>
+        <file>img/Flag_FO.png</file>
+        <file>img/Flag_UK.png</file>
+    </qresource>
+    <qresource prefix="/lang">
+        <file>lang/databel_da.ts</file>
+        <file>lang/databel_en.ts</file>
+        <file>lang/databel_da.qm</file>
+        <file>lang/databel_en.qm</file>
     </qresource>
 </RCC>

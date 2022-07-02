@@ -14,18 +14,22 @@ DEFINES += APP_VERSION=\"\\\"$${VERSION}\\\"\"
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    preferencemanager.cpp \
     solvetasks.cpp
 
 HEADERS += \
     mainwindow.h \
+    preferencemanager.h \
     solvetasks.h
 
 FORMS += \
     mainwindow.ui \
+    preferencemanager.ui \
     solvetasks.ui
 
 TRANSLATIONS += \
-    lang/daspelling_en.ts
+    lang/databel_da.ts \
+    lang/databel_en.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -34,3 +38,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     img.qrc
+
+DISTFILES += \
+    lang/databel_da.qm \
+    lang/databel_en.qm

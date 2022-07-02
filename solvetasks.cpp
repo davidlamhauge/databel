@@ -3,12 +3,17 @@
 
 #include <QKeyEvent>
 #include <QRandomGenerator>
+#include <QSettings>
 
 SolveTasks::SolveTasks(int type, int antal, int max, bool negatives, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SolveTasks)
 {
     ui->setupUi(this);
+
+    // initialize settings
+    QSettings settings("TeamLamhauge", "daTabel");
+    move(settings.value("winPos", pos()).toPoint());
 
     mTaskType = type;
     mAntal = antal;
@@ -131,7 +136,8 @@ QString SolveTasks::getTasks()
         } while (divisorer.size() < 3);
         int antal = divisorer.count();
         int pos = QRandomGenerator::global()->bounded(1, antal - 1);
-        return QString(QString::number(tal) + "," + QString::number(divisorer.at(pos)));
+        a = tal;
+        b = divisorer.at(pos);
     }
         break;
     default:

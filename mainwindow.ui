@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>251</height>
+    <width>440</width>
+    <height>326</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -110,6 +110,13 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
+         <widget class="QPushButton" name="btnSettings">
+          <property name="text">
+           <string>Indstillinger</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -140,7 +147,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>440</width>
      <height>26</height>
     </rect>
    </property>

@@ -2,21 +2,41 @@
 #include "ui_mainwindow.h"
 
 #include "solvetasks.h"
+#include "preferencemanager.h"
 
 #include <QSpinBox>
 #include <QCheckBox>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QSettings>
+#include <QScreen>
+#include <QTranslator>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // initialize settings
+    QSettings settings("TeamLamhauge", "daTabel");
+    resize(settings.value("winSize", QSize(400, 300)).toSize());
+    move(settings.value("winPos", this->pos()).toPoint());
+    mTaskType = settings.value("taskType", 1).toInt();
+
+    switch (mTaskType) {
+    case 1 : ui->rbPlus->setChecked(true); break;
+    case 2 : ui->rbMinus->setChecked(true); break;
+    case 3 : ui->rbGange->setChecked(true); break;
+    case 4 : ui->rbDivision->setChecked(true); break;
+    default: ui->rbPlus->setChecked(true); break;
+    }
+
     setupOptions();
     setWindowTitle("databel - v. " APP_VERSION);
 
     connect(ui->btnExit, &QPushButton::clicked, this, &MainWindow::close);
+    connect(ui->btnSettings, &QPushButton::clicked, this, &MainWindow::setupSettings);
     connect(ui->rbPlus, &QRadioButton::toggled, this, &MainWindow::setupOptions);
     connect(ui->rbMinus, &QRadioButton::toggled, this, &MainWindow::setupOptions);
     connect(ui->rbGange, &QRadioButton::toggled, this, &MainWindow::setupOptions);
@@ -25,6 +45,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    // save settings for next session
+    QSettings settings("TeamLamhauge", "daTabel");
+    settings.setValue("winPos", pos());
+    settings.setValue("winSize", size());
+
     delete ui;
 }
 
@@ -50,6 +75,38 @@ void MainWindow::setupOptions()
         mTaskType = 4;
         setupDivision();
     }
+
+    QSettings settings("TeamLamhauge", "daTabel");
+    settings.setValue("taskType", mTaskType);
+}
+
+void MainWindow::setupSettings()
+{
+    QSettings settings("TeamLamhauge", "daTabel");
+    QString tmp = settings.value("lang", ":lang/lang/databel_da").toString();
+
+    prefs = new PreferenceManager();
+    prefs->move(pos());
+    prefs->exec();
+
+    updateSettings();
+
+    // need to change UI language ?
+    if (tmp != mLanguage)
+    {
+        QTranslator* translator = new QTranslator(this);
+        translator->load(mLanguage);
+        QCoreApplication::installTranslator(translator);
+        ui->retranslateUi(this);
+        setupOptions();
+    }
+}
+
+void MainWindow::updateSettings()
+{
+    QSettings settings("TeamLamhauge", "daTabel");
+    mLanguage = settings.value("lang", ":lang/lang/databel_da.ts").toString();
+    mLangIndex = settings.value("langIndex", 0).toInt();
 }
 
 void MainWindow::removeLayout()
@@ -129,10 +186,10 @@ void MainWindow::setupMinus()
     grid->addWidget(sbMaxTal,1, 1);
 
     QCheckBox* cb = new QCheckBox(tr("Tillad negativ differens"));
-    grid->addWidget(cb, 2, 1);
+    grid->addWidget(cb, 2, 0);
 
     QPushButton* btnOK = new QPushButton(tr("Gå til Minus-opgaver"));
-    grid->addWidget(btnOK, 3, 1);
+    grid->addWidget(btnOK, 2, 1);
 
     // connects
     connect(sbAntal, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setOptionAntal);
@@ -239,7 +296,10 @@ void MainWindow::setupOption(int taskType)
 
 void MainWindow::optionChosen()
 {
-    SolveTasks* solve = new SolveTasks(mTaskType, mAntal, mMax, mNegativeResult);
+    QSettings settings("TeamLamhauge", "daTabel");
+    settings.setValue("winPos", pos());
+
+    solve = new SolveTasks(mTaskType, mAntal, mMax, mNegativeResult);
     solve->show();
 }
 
