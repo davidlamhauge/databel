@@ -12,6 +12,8 @@ PreferenceManager::PreferenceManager(QWidget *parent) :
     QSettings settings("TeamLamhauge", "daTabel");
     int index = settings.value("langIndex", 0).toInt();
     ui->cbLanguage->setCurrentIndex(index);
+    int timerindex = settings.value("timer", 0).toInt();
+    ui->cbTimer->setCurrentIndex(timerindex);
 
     connect(ui->btnOk, &QPushButton::clicked, this, &PreferenceManager::close);
     connect(ui->cbLanguage, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &PreferenceManager::setLanguage);

@@ -82,13 +82,16 @@ void MainWindow::setupOptions()
 
 void MainWindow::setupSettings()
 {
+    // first save current language...
     QSettings settings("TeamLamhauge", "daTabel");
     QString tmp = settings.value("lang", ":lang/lang/databel_da").toString();
 
+    // ...then start preferencemanager...
     prefs = new PreferenceManager();
     prefs->move(pos());
     prefs->exec();
 
+    // ...then update settings, and make necessary changes
     updateSettings();
 
     // need to change UI language ?

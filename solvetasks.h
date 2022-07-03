@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QElapsedTimer>
+#include <QTimer>
 
 namespace Ui {
 class SolveTasks;
@@ -27,6 +28,8 @@ private:
     QString getTasks();
     void checkTasks();
     void solveTask();
+    void updateTimerLabel();
+
     QList<int> getDivisors(int num);
 
     int m1 = 0;
@@ -39,9 +42,11 @@ private:
     int mTaskType;
     int mAntal;
     int mMax;
+    int mShowTimer = 0;
     bool mNegativeResult = false;
 
     QElapsedTimer timer;
+    QTimer single;
 
 };
 

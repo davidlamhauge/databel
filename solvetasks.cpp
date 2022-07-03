@@ -14,6 +14,7 @@ SolveTasks::SolveTasks(int type, int antal, int max, bool negatives, QWidget *pa
     // initialize settings
     QSettings settings("TeamLamhauge", "daTabel");
     move(settings.value("winPos", pos()).toPoint());
+    mShowTimer = settings.value("timer", 0).toInt();
 
     mTaskType = type;
     mAntal = antal;
@@ -35,7 +36,11 @@ SolveTasks::SolveTasks(int type, int antal, int max, bool negatives, QWidget *pa
     connect(ui->btnExit, &QPushButton::clicked, this, &SolveTasks::close);
     connect(ui->btnOnceMore, &QPushButton::clicked, this, &SolveTasks::restartTasks);
 
-    timer.start();
+    if (mShowTimer > 0)
+        timer.start();
+    if (mShowTimer > 1)
+        single.singleShot(1000, this, &SolveTasks::updateTimerLabel);
+
     setTasks();
 }
 
@@ -74,7 +79,10 @@ void SolveTasks::restartTasks()
     ui->leResult->setEnabled(true);
     ui->labElapsed->setText("");
 
-    timer.restart();
+    if (mShowTimer > 0)
+        timer.start();
+    if (mShowTimer > 1)
+        single.singleShot(1000, this, &SolveTasks::updateTimerLabel);
     setTasks();
 }
 
@@ -88,8 +96,12 @@ void SolveTasks::setTasks()
     else
     {
         ui->leResult->setEnabled(false);
-        float elapsed = timer.elapsed() / 1000.0;
-        ui->labElapsed->setText(QString::number(elapsed) + " sek.");
+        if (mShowTimer > 0)
+        {
+            float elapsed = timer.elapsed() / 1000.0;
+            ui->labElapsed->setText(QString::number(elapsed) + " sek.");
+            timer.invalidate();
+        }
     }
 }
 
@@ -188,6 +200,16 @@ void SolveTasks::solveTask()
     ui->leResult->setFocus();
 }
 
+void SolveTasks::updateTimerLabel()
+{
+    if (timer.isValid())
+    {
+        int elapsed = timer.elapsed() / 1000;
+        ui->labElapsed->setText(QString::number(elapsed) + tr(" sek."));
+        single.singleShot(1000, this, &SolveTasks::updateTimerLabel);
+    }
+}
+
 QList<int> SolveTasks::getDivisors(int num)
 {
     QList<int> divisors;
@@ -196,28 +218,3 @@ QList<int> SolveTasks::getDivisors(int num)
             divisors.append(i);
     return divisors;
 }
-/*
-QString DiviOpgaver::getDiviOpgave()
-{
-    QList<int> divisorer;
-    int tal;
-    do
-    {
-        tal = QRandomGenerator::global()->bounded(10, mMaxDividend);
-        divisorer = getDivisors(tal);
-    } while (divisorer.size() < 3);
-    int antal = divisorer.count();
-    int pos = QRandomGenerator::global()->bounded(1, antal - 1);
-    return QString(QString::number(tal) + "," + QString::number(divisorer.at(pos)));
-}
-
-QList<int> DiviOpgaver::getDivisors(int num)
-{
-    QList<int> divisors;
-    for (int i = 1; i <= num; i++)
-        if (num % i == 0)
-            divisors.append(i);
-    return divisors;
-}
-
-*/

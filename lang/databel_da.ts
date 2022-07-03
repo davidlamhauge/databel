@@ -39,79 +39,79 @@
         <translation>Afslut</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="131"/>
-        <location filename="../mainwindow.cpp" line="168"/>
-        <location filename="../mainwindow.cpp" line="209"/>
-        <location filename="../mainwindow.cpp" line="246"/>
+        <location filename="../mainwindow.cpp" line="134"/>
+        <location filename="../mainwindow.cpp" line="171"/>
+        <location filename="../mainwindow.cpp" line="212"/>
+        <location filename="../mainwindow.cpp" line="249"/>
         <source>Antal opgaver:</source>
         <translation>Antal opgaver:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="137"/>
-        <location filename="../mainwindow.cpp" line="174"/>
-        <location filename="../mainwindow.cpp" line="215"/>
-        <location filename="../mainwindow.cpp" line="252"/>
+        <location filename="../mainwindow.cpp" line="140"/>
+        <location filename="../mainwindow.cpp" line="177"/>
+        <location filename="../mainwindow.cpp" line="218"/>
+        <location filename="../mainwindow.cpp" line="255"/>
         <source>Interval: 10-100</source>
         <translation>Interval: 10-100</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="141"/>
+        <location filename="../mainwindow.cpp" line="144"/>
         <source>Maksimum sum:</source>
         <translation>Maksimum sum:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="147"/>
-        <location filename="../mainwindow.cpp" line="262"/>
+        <location filename="../mainwindow.cpp" line="150"/>
+        <location filename="../mainwindow.cpp" line="265"/>
         <source>Interval: 20-1000</source>
         <translation>Interval: 20-1000</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="151"/>
+        <location filename="../mainwindow.cpp" line="154"/>
         <source>Gå til Plus-opgaver</source>
         <translation>Gå til Plus-opgaver</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="178"/>
+        <location filename="../mainwindow.cpp" line="181"/>
         <source>Ikke tal større end:</source>
         <translation>Ikke tal større end:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="184"/>
+        <location filename="../mainwindow.cpp" line="187"/>
         <source>Interval: 20-500</source>
         <translation>Interval: 20-500</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="188"/>
+        <location filename="../mainwindow.cpp" line="191"/>
         <source>Tillad negativ differens</source>
         <translation>Tillad negativ differens</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="191"/>
+        <location filename="../mainwindow.cpp" line="194"/>
         <source>Gå til Minus-opgaver</source>
         <translation>Gå til Minus-opgaver</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="219"/>
+        <location filename="../mainwindow.cpp" line="222"/>
         <source>Ikke faktorer større end:</source>
         <translation>Ikke faktorer større end:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="225"/>
+        <location filename="../mainwindow.cpp" line="228"/>
         <source>Interval: 5-20</source>
         <translation>Interval: 5-20</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="229"/>
+        <location filename="../mainwindow.cpp" line="232"/>
         <source>Gå til Gange-opgaver</source>
         <translation>Gå til Gange-opgaver</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="256"/>
+        <location filename="../mainwindow.cpp" line="259"/>
         <source>Ikke dividend større end:</source>
         <translation>Ikke dividend større end:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="266"/>
+        <location filename="../mainwindow.cpp" line="269"/>
         <source>Gå til Divisions-opgaver</source>
         <translation>Gå til Divisions-opgaver</translation>
     </message>
@@ -182,25 +182,30 @@
         <translation>Afslut</translation>
     </message>
     <message>
-        <location filename="../solvetasks.cpp" line="24"/>
-        <location filename="../solvetasks.cpp" line="28"/>
+        <location filename="../solvetasks.cpp" line="25"/>
+        <location filename="../solvetasks.cpp" line="29"/>
         <source>Plus</source>
         <translation>Plus</translation>
     </message>
     <message>
-        <location filename="../solvetasks.cpp" line="25"/>
+        <location filename="../solvetasks.cpp" line="26"/>
         <source>Minus</source>
         <translation>Minus</translation>
     </message>
     <message>
-        <location filename="../solvetasks.cpp" line="26"/>
+        <location filename="../solvetasks.cpp" line="27"/>
         <source>Gange</source>
         <translation>Gange</translation>
     </message>
     <message>
-        <location filename="../solvetasks.cpp" line="27"/>
+        <location filename="../solvetasks.cpp" line="28"/>
         <source>Division</source>
         <translation>Division</translation>
+    </message>
+    <message>
+        <location filename="../solvetasks.cpp" line="208"/>
+        <source> sek.</source>
+        <translation> sek.</translation>
     </message>
 </context>
 </TS>
