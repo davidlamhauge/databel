@@ -29,7 +29,8 @@ FORMS += \
 
 TRANSLATIONS += \
     lang/databel_da.ts \
-    lang/databel_en.ts
+    lang/databel_en.ts \
+    lang/databel_fo.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

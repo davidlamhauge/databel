@@ -35,6 +35,9 @@ void PreferenceManager::setLanguage(int i)
         settings.setValue("lang", ":lang/lang/databel_da");
         break;
     case 1:
+        settings.setValue("lang", ":lang/lang/databel_fo");
+        break;
+    case 2:
         settings.setValue("lang", ":lang/lang/databel_en");
         break;
     default:

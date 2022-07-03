@@ -108,7 +108,7 @@ void MainWindow::setupSettings()
 void MainWindow::updateSettings()
 {
     QSettings settings("TeamLamhauge", "daTabel");
-    mLanguage = settings.value("lang", ":lang/lang/databel_da.ts").toString();
+    mLanguage = settings.value("lang", ":lang/lang/databel_da").toString();
     mLangIndex = settings.value("langIndex", 0).toInt();
 }
 

@@ -12,5 +12,7 @@
         <file>lang/databel_en.ts</file>
         <file>lang/databel_da.qm</file>
         <file>lang/databel_en.qm</file>
+        <file>lang/databel_fo.qm</file>
+        <file>lang/databel_fo.ts</file>
     </qresource>
 </RCC>
