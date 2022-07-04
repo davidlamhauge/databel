@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>440</width>
-    <height>326</height>
+    <height>380</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -93,6 +93,20 @@
            <widget class="QRadioButton" name="rbDivision">
             <property name="text">
              <string>Division</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="rbGangeTabel">
+            <property name="text">
+             <string>Gangetabel</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="rbPlusTabel">
+            <property name="text">
+             <string>Plustabel</string>
             </property>
            </widget>
           </item>

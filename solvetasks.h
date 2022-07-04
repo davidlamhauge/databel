@@ -15,6 +15,7 @@ class SolveTasks : public QWidget
 
 public:
     explicit SolveTasks(int type, int antal, int max, bool negatives = false, QWidget *parent = nullptr);
+    explicit SolveTasks(int type, int antal, QWidget *parent = nullptr);
     ~SolveTasks();
 
     bool eventFilter(QObject* obj, QEvent* e);
@@ -41,13 +42,16 @@ private:
 
     int mTaskType;
     int mAntal;
+    int mTabel;
     int mMax;
     int mShowTimer = 0;
     bool mNegativeResult = false;
+    bool mSingleTabel = false;
 
     QElapsedTimer timer;
     QTimer single;
 
+    QList<int> list;
 };
 
 #endif // SOLVETASKS_H

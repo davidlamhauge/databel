@@ -20,6 +20,7 @@ SolveTasks::SolveTasks(int type, int antal, int max, bool negatives, QWidget *pa
     mAntal = antal;
     mMax = max;
     mNegativeResult = negatives;
+    mSingleTabel = false;
 
     switch (mTaskType) {
     case 1: ui->labSign->setText("+"); setWindowTitle(tr("Plus")); break;
@@ -35,6 +36,53 @@ SolveTasks::SolveTasks(int type, int antal, int max, bool negatives, QWidget *pa
 
     connect(ui->btnExit, &QPushButton::clicked, this, &SolveTasks::close);
     connect(ui->btnOnceMore, &QPushButton::clicked, this, &SolveTasks::restartTasks);
+
+    if (mShowTimer > 0)
+        timer.start();
+    if (mShowTimer > 1)
+        single.singleShot(1000, this, &SolveTasks::updateTimerLabel);
+
+    setTasks();
+}
+
+SolveTasks::SolveTasks(int type, int tabel, QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::SolveTasks)
+{
+    ui->setupUi(this);
+
+    // initialize settings
+    QSettings settings("TeamLamhauge", "daTabel");
+    move(settings.value("winPos", pos()).toPoint());
+    mShowTimer = settings.value("timer", 0).toInt();
+
+    mTaskType = type;
+    mTabel = tabel;
+    mAntal = 10;
+    mSingleTabel = true;
+
+    switch (mTaskType) {
+    case 5: ui->labSign->setText("x"); setWindowTitle(tr("Gangetabel")); break;
+    case 6: ui->labSign->setText("+"); setWindowTitle(tr("Plustabel")); break;
+    default: ui->labSign->setText("x"); setWindowTitle(tr("Gangetabel")); break;
+    }
+
+    ui->leResult->installEventFilter(this);
+
+    ui->labAntal->setText(QString::number(mAntal));
+
+    connect(ui->btnExit, &QPushButton::clicked, this, &SolveTasks::close);
+    connect(ui->btnOnceMore, &QPushButton::clicked, this, &SolveTasks::restartTasks);
+
+    list.clear();
+    for (int i = 1; i < 11; i++)
+        list.append(i);
+
+    for (int i = 0; i < 30 ; i++ )
+    {
+        int pos = QRandomGenerator::global()->bounded(1, 9);
+        list.move(0, pos);
+    }
 
     if (mShowTimer > 0)
         timer.start();
@@ -152,6 +200,11 @@ QString SolveTasks::getTasks()
         b = divisorer.at(pos);
     }
         break;
+    case 5:
+    case 6:
+        a = list.takeFirst();
+        b = mTabel;
+        break;
     default:
     {
         int tal = static_cast<int>(mMax * 0.6);
@@ -191,6 +244,8 @@ void SolveTasks::solveTask()
     case 2: mResult = m1 - m2; break;
     case 3: mResult = m1 * m2; break;
     case 4: mResult = m1 / m2; break;
+    case 5: mResult = m1 * m2; break;
+    case 6: mResult = m1 + m2; break;
     default: mResult = m1 + m2; break;
     }
 

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "solvetasks.h"
+#include "tabeltrainer.h"
 #include "preferencemanager.h"
 
 #include <QSpinBox>
@@ -11,6 +12,7 @@
 #include <QSettings>
 #include <QScreen>
 #include <QTranslator>
+#include <QHBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -41,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->rbMinus, &QRadioButton::toggled, this, &MainWindow::setupOptions);
     connect(ui->rbGange, &QRadioButton::toggled, this, &MainWindow::setupOptions);
     connect(ui->rbDivision, &QRadioButton::toggled, this, &MainWindow::setupOptions);
+    connect(ui->rbGangeTabel, &QRadioButton::toggled, this, &MainWindow::setupOptions);
+    connect(ui->rbPlusTabel, &QRadioButton::toggled, this, &MainWindow::setupOptions);
 }
 
 MainWindow::~MainWindow()
@@ -74,6 +78,16 @@ void MainWindow::setupOptions()
     {
         mTaskType = 4;
         setupDivision();
+    }
+    else if (ui->rbGangeTabel->isChecked())
+    {
+        mTaskType = 5;
+        setupGangeTabel();
+    }
+    else if (ui->rbPlusTabel->isChecked())
+    {
+        mTaskType = 6;
+        setupPlusTabel();
     }
 
     QSettings settings("TeamLamhauge", "daTabel");
@@ -278,6 +292,75 @@ void MainWindow::setupDivision()
 
 }
 
+void MainWindow::setupGangeTabel()
+{
+    removeLayout();
+
+    QGridLayout* grid = new QGridLayout;
+
+    QLabel* labChoose = new QLabel(tr("Vælg tabel:"));
+    QSpinBox* sbTabel = new QSpinBox;
+    sbTabel->setMinimum(2);
+    sbTabel->setMaximum(20);
+    sbTabel->setValue(5);
+    mTabel = 5;
+    sbTabel->setToolTip(tr("Interval: 2-20"));
+    grid->addWidget(labChoose, 0, 0);
+    grid->addWidget(sbTabel, 0, 1);
+
+    QLabel* lab1 = new QLabel(tr("Tabel ovenfor"));
+    QPushButton* btnEn = new QPushButton(tr("Gangetabel"));
+    grid->addWidget(lab1, 1, 0);
+    grid->addWidget(btnEn, 1, 1);
+
+    QLabel* lab100 = new QLabel(tr("1-10 x 1-10"));
+    QPushButton* btnOK = new QPushButton(tr("Fuld gangetabel"));
+    grid->addWidget(lab100, 2, 0);
+    grid->addWidget(btnOK, 2, 1);
+
+    // connects
+    connect(btnOK, &QPushButton::clicked, this, &MainWindow::tabelChosen);
+    connect(btnEn, &QPushButton::clicked, this, &MainWindow::tabelSingle);
+    connect(sbTabel, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setOptionTabel);
+
+    ui->groupBox->setLayout(grid);
+
+}
+
+void MainWindow::setupPlusTabel()
+{
+    removeLayout();
+
+    QGridLayout* grid = new QGridLayout;
+
+    QLabel* labChoose = new QLabel(tr("Vælg tabel:"));
+    QSpinBox* sbTabel = new QSpinBox;
+    sbTabel->setMinimum(2);
+    sbTabel->setMaximum(20);
+    sbTabel->setValue(5);
+    mTabel = 5;
+    sbTabel->setToolTip(tr("Interval: 2-20"));
+    grid->addWidget(labChoose, 0, 0);
+    grid->addWidget(sbTabel, 0, 1);
+
+    QLabel* lab1 = new QLabel(tr("Tabel ovenfor"));
+    QPushButton* btnEn = new QPushButton(tr("Plustabel"));
+    grid->addWidget(lab1, 1, 0);
+    grid->addWidget(btnEn, 1, 1);
+
+    QLabel* lab100 = new QLabel(tr("1-10 x 1-10"));
+    QPushButton* btnOK = new QPushButton(tr("Fuld plustabel"));
+    grid->addWidget(lab100, 2, 0);
+    grid->addWidget(btnOK, 2, 1);
+
+    // connects
+    connect(btnOK, &QPushButton::clicked, this, &MainWindow::tabelChosen);
+    connect(btnEn, &QPushButton::clicked, this, &MainWindow::tabelSingle);
+    connect(sbTabel, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::setOptionTabel);
+
+    ui->groupBox->setLayout(grid);
+}
+
 void MainWindow::setNegativeResult(int state)
 {
     if (state == 2)
@@ -286,23 +369,30 @@ void MainWindow::setNegativeResult(int state)
         mNegativeResult = false;
 }
 
-void MainWindow::setupOption(int taskType)
-{
-    switch (taskType) {
-    case 1: setupPlus(); break;
-    case 2: setupMinus(); break;
-    case 3: setupGange(); break;
-    case 4: setupDivision(); break;
-    default: setupPlus(); break;
-    }
-}
-
 void MainWindow::optionChosen()
 {
     QSettings settings("TeamLamhauge", "daTabel");
     settings.setValue("winPos", pos());
 
     solve = new SolveTasks(mTaskType, mAntal, mMax, mNegativeResult);
+    solve->show();
+}
+
+void MainWindow::tabelChosen()
+{
+    QSettings settings("TeamLamhauge", "daTabel");
+    settings.setValue("winPos", pos());
+
+    trainer = new TabelTrainer(mTaskType);
+    trainer->show();
+}
+
+void MainWindow::tabelSingle()
+{
+    QSettings settings("TeamLamhauge", "daTabel");
+    settings.setValue("winPos", pos());
+
+    solve = new SolveTasks(mTaskType, mTabel);
     solve->show();
 }
 

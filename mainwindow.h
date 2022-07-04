@@ -6,6 +6,7 @@
 
 class PreferenceManager;
 class SolveTasks;
+class TabelTrainer;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,25 +34,32 @@ private:
     void setupMinus();
     void setupGange();
     void setupDivision();
+    void setupGangeTabel();
+    void setupPlusTabel();
 
     void setNegativeResult(int state);
 
     // common member functions
-    void setupOption(int taskType);
     void setOptionAntal(int antal) {mAntal = antal; }
     void setOptionMax(int maxTal) {mMax = maxTal; }
+    void setOptionTabel(int tabel) {mTabel = tabel; }
+
     void optionChosen();
+    void tabelChosen();
+    void tabelSingle();
 
     // common member vars
     int mTaskType;
     int mAntal;
     int mMax;
+    int mTabel;
     bool mNegativeResult = false;
 
     QString mLanguage = "";
     int mLangIndex = 0;
 
     SolveTasks* solve = nullptr;
+    TabelTrainer* trainer = nullptr;
     PreferenceManager* prefs = nullptr;
 };
 #endif // MAINWINDOW_H

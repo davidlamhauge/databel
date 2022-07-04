@@ -15,17 +15,20 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     preferencemanager.cpp \
-    solvetasks.cpp
+    solvetasks.cpp \
+    tabeltrainer.cpp
 
 HEADERS += \
     mainwindow.h \
     preferencemanager.h \
-    solvetasks.h
+    solvetasks.h \
+    tabeltrainer.h
 
 FORMS += \
     mainwindow.ui \
     preferencemanager.ui \
-    solvetasks.ui
+    solvetasks.ui \
+    tabeltrainer.ui
 
 TRANSLATIONS += \
     lang/databel_da.ts \
