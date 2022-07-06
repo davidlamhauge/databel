@@ -16,8 +16,15 @@ TabelTrainer::TabelTrainer(int type, QWidget *parent) :
     QSettings settings("TeamLamhauge", "daTabel");
     move(settings.value("winPos", pos()).toPoint());
     mShowTimer = settings.value("timer", 0).toInt();
+    mShowColors = settings.value("showColors", false).toBool();
+    if (mShowColors)
+        ui->cbColors->setChecked(true);
+    else
+        ui->cbColors->setChecked(false);
 
     mTaskType = type;
+
+    Q_ASSERT(mTaskType > 4);
 
     switch (mTaskType) {
     case 5: ui->labSign->setText("x"); setWindowTitle(tr("Gangetabel")); break;
@@ -29,6 +36,7 @@ TabelTrainer::TabelTrainer(int type, QWidget *parent) :
 
     connect(ui->btnExit, &QPushButton::clicked, this, &TabelTrainer::close);
     connect(ui->btnOnceMore, &QPushButton::clicked, this, &TabelTrainer::restartTrainer);
+    connect(ui->cbColors, &QCheckBox::stateChanged, this, &TabelTrainer::updateGrid);
 
     numbers.clear();
     for (int i = 0; i < 100; i++)
@@ -42,10 +50,17 @@ TabelTrainer::TabelTrainer(int type, QWidget *parent) :
         numbers.move(0, tmp);
     }
 
+    mColors.clear();
+    for (int i = 0; i < 100; i++)
+    {
+        mColors.append(Qt::blue);
+    }
+
     if (mShowTimer > 0)
         timer.start();
     if (mShowTimer > 1)
         single.singleShot(1000, this, &TabelTrainer::updateTimerLabel);
+
 
     setTrainer();
 }
@@ -113,6 +128,8 @@ void TabelTrainer::setTrainer()
 
 QString TabelTrainer::getTrainer()
 {
+    Q_ASSERT(!numbers.empty());
+
     int tmp = numbers.takeFirst();
     mRow = tmp / 10;
     mCol = tmp % 10;
@@ -128,11 +145,15 @@ void TabelTrainer::checkTrainer()
     if (guess == mResult)
     {
         mCorrect++;
-        ui->tableWidget->item(mRow, mCol)->setBackground(mGreen);
+        mColors.replace(mRow * 10 + mCol, mGreen);
+        if (mShowColors)
+            ui->tableWidget->item(mRow, mCol)->setBackground(mGreen);
     }
     else
     {
-        ui->tableWidget->item(mRow, mCol)->setBackground(mRosa);
+        mColors.replace(mRow * 10 + mCol, mPurple);
+        if (mShowColors)
+            ui->tableWidget->item(mRow, mCol)->setBackground(mPurple);
     }
     mSolved++;
     setTrainer();
@@ -144,6 +165,8 @@ void TabelTrainer::solveTrainer()
     QStringList list = opg.split(",");
     m1 = list.first().toInt();
     m2 = list.last().toInt();
+
+    Q_ASSERT(mTaskType > 4);
 
     switch (mTaskType) {
     case 5: mResult = m1 * m2; break;
@@ -165,5 +188,41 @@ void TabelTrainer::updateTimerLabel()
         ui->labElapsed->setText(QString::number(elapsed) + tr(" sek."));
         single.singleShot(1000, this, &TabelTrainer::updateTimerLabel);
     }
+}
+
+void TabelTrainer::updateGrid(int state)
+{
+
+    // show colors
+    if (state == 2)
+    {
+        mShowColors = true;
+        for (int i = 0; i < 100 ; i++ )
+        {
+            if (mColors.at(i) != Qt::blue)
+            {
+                int r = i / 10;
+                int c = i % 10;
+                ui->tableWidget->item(r, c)->setBackground(mColors.at(i));
+            }
+        }
+    }
+    else // don't show colors
+    {
+        mShowColors = false;
+        for (int i = 0; i < 100 ; i++ )
+        {
+            if (mColors.at(i) != Qt::blue)
+            {
+                int r = i / 10;
+                int c = i % 10;
+                ui->tableWidget->item(r, c)->setBackground(mBg);
+            }
+        }
+    }
+    QSettings settings("TeamLamhauge", "daTabel");
+    settings.setValue("showColors", mShowColors);
+
+    ui->leResult->setFocus();
 }
 

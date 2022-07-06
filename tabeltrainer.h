@@ -29,6 +29,7 @@ private:
     void checkTrainer();
     void solveTrainer();
     void updateTimerLabel();
+    void updateGrid(int state);
 
     int m1 = 0;
     int m2 = 0;
@@ -43,13 +44,18 @@ private:
     int mTaskType;
     int mShowTimer = 0;
 
+    void setShowColors(bool b) { mShowColors = b; }
+    bool mShowColors = false;
+
     QList<int> numbers;
+    QList<QColor> mColors;
 
     QElapsedTimer timer;
     QTimer single;
 
-    const QColor mRosa = QColor(255, 123, 123);
+    const QColor mPurple = QColor(255, 123, 240);
     const QColor mGreen = QColor(123, 255, 123);
+    const QColor mBg = QColor(240, 240, 240);
 };
 
 #endif // TABELTRAINER_H
