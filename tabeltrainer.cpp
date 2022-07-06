@@ -216,7 +216,7 @@ void TabelTrainer::updateGrid(int state)
             {
                 int r = i / 10;
                 int c = i % 10;
-                ui->tableWidget->item(r, c)->setBackground(mBg);
+                ui->tableWidget->item(r, c)->setBackground(mBackGr);
             }
         }
     }

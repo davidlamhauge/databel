@@ -55,7 +55,7 @@ private:
 
     const QColor mPurple = QColor(255, 123, 240);
     const QColor mGreen = QColor(123, 255, 123);
-    const QColor mBg = QColor(240, 240, 240);
+    const QColor mBackGr = QColor(240, 240, 240);
 };
 
 #endif // TABELTRAINER_H
